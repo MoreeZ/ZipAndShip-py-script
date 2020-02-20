@@ -72,7 +72,7 @@ def removeZipFile(zipFileN):
 # ================================================
 runFolderPath = os.path.dirname(os.path.abspath(__file__))
 
-if os.path.isfile(runFolderPath):
+if os.path.isfile(runFolderPath+"\\credentials.json"):
     zipFileName = input("What do you want to call the zip file?: ")
     try:
         zipTheFiles(zipFileName)
