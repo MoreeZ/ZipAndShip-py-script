@@ -88,8 +88,9 @@ if os.path.isfile(runFolderPath+"\\credentials.json"):
     finally:
         removeZipFile(zipFileName)
 else:
-    print('YOU MUST INCLUDE A "credentials.json"!!!')
-    print('1. Go to: https://developers.google.com/drive/api/v3/quickstart/js')
-    print('2. Click on Enable Drive API and download the clinet config.')
-    input('3. Place the client config in the ZipAndShip folder and run the app again.')
+    print('You MUST set up google api modules and include "credentials.json" in this folder!')
+    print('1. Install google api modules: pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib oauth2client')
+    print('2. Go to: https://developers.google.com/drive/api/v3/quickstart/python')
+    print('3. Click on Enable Drive API and download the clinet config.')
+    input('4. Place the client config in the ZipAndShip folder and run the app again.')
     exit()
