@@ -71,21 +71,25 @@ def removeZipFile(zipFileN):
 # Run and handle the process
 # ================================================
 runFolderPath = os.path.dirname(os.path.abspath(__file__))
-zipFileName = input("What do you want to call the zip file?: ")
-try:
-    zipTheFiles(zipFileName)
-except:
-    input("Oops! Failed to zip the files! Press Enter key to exit..")
-else:
-    if os.path.isfile(runFolderPath):
+
+if os.path.isfile(runFolderPath):
+    zipFileName = input("What do you want to call the zip file?: ")
+    try:
+        zipTheFiles(zipFileName)
+    except:
+        input("Oops! Failed to zip the files! Press Enter key to exit..")
+    else:
+
         shipIt(zipFileName)
         askToOpen = input("Do you want to open your drive? y/n: ")
         if askToOpen == "y" or askToOpen == "yes":
             webbrowser.open('https://drive.google.com/drive/my-drive', new=2)
-    else:
-        print('YOU MUST INCLUDE A "credentials.json"!!!')
-        print('1. Go to: https://developers.google.com/drive/api/v3/quickstart/js')
-        print('2. Click on Enable Drive API and download the clinet config.')
-        input('3. Place the client config in the ZipAndShip folder and run the app again.')
-finally:
-    removeZipFile(zipFileName)
+
+    finally:
+        removeZipFile(zipFileName)
+else:
+    print('YOU MUST INCLUDE A "credentials.json"!!!')
+    print('1. Go to: https://developers.google.com/drive/api/v3/quickstart/js')
+    print('2. Click on Enable Drive API and download the clinet config.')
+    input('3. Place the client config in the ZipAndShip folder and run the app again.')
+    exit()
