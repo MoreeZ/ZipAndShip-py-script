@@ -7,23 +7,23 @@ from googleapiclient.discovery import build
 import io
 import httplib2
 from pathlib import Path
+import re
+import webbrowser
+
 
 # ================================================
 # Create a temporary zip file
 # ================================================
-
-runFolderPath = os.path.dirname(os.path.abspath(__file__))
-
-
 def zipTheFiles(zipFileN):
     myFiles = []
     for file in os.listdir(os.path.dirname(runFolderPath)):
-        if file != "ZipAndShip":
+        regexp = re.compile(r'ZipAndShip')
+        if not regexp.search(file):
             myFiles.append(file)
 
     with zipfile.ZipFile(zipFileN+".zip", "w") as zf:
         for f in myFiles:
-            zf.write(f)
+            zf.write('../'+f, f)
             print(f)
     return True
 
@@ -67,12 +67,19 @@ def removeZipFile(zipFileN):
     os.remove(zipFileN+".zip")
 
 
+# ================================================
+# Run and handle the process
+# ================================================
+runFolderPath = os.path.dirname(os.path.abspath(__file__))
 zipFileName = input("What do you want to call the zip file?: ")
 try:
     zipTheFiles(zipFileName)
 except:
-    print("Oops! Failed to zip the files!")
+    input("Oops! Failed to zip the files! Press Enter key to exit..")
 else:
     shipIt(zipFileName)
+    askToOpen = input("Do you want to open your drive? y/n: ")
+    if askToOpen == "y" or askToOpen == "yes":
+        webbrowser.open('https://drive.google.com/drive/my-drive', new=2)
 finally:
     removeZipFile(zipFileName)
